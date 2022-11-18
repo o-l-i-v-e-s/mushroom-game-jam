@@ -5,38 +5,67 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private CharacterController characterController;
-    [SerializeField] float moveSpeed = 30f;
-    [SerializeField] float maxSpeed = 0.05f;
-    [SerializeField] float moveMagnitudeThreshold = 0.1f;
-    // Start is called before the first frame update
+    [SerializeField] float moveSpeed = 6f;
+    [SerializeField] float maxSpeed = 20f;
+    [SerializeField] GameObject UnstableShroom;
+    [SerializeField] float SecondsToPlaceShroom = 1f;
+
+    private bool CanPlaceShroom = true;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        HandleMovement();
+        HandleShroomPlacement();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Explosion"))
+        {
+            HandlePlayerDeath();
+        }
+    }
+
+    void HandleShroomPlacement()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && CanPlaceShroom)
+        {
+            Vector3 ShroomPosition = new Vector3(Mathf.RoundToInt(transform.position.x),transform.position.y,Mathf.RoundToInt(transform.position.z));
+            Instantiate(UnstableShroom, ShroomPosition, Quaternion.identity);
+            CanPlaceShroom = false;
+            StartCoroutine(UpdateCanPlaceShroom(true));
+        }
+    }
+
+    IEnumerator UpdateCanPlaceShroom(bool Boolean)
+    {
+        yield return new WaitForSeconds(SecondsToPlaceShroom);
+        CanPlaceShroom = Boolean;
+    }
+
+    void HandleMovement()
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(horizontalMovement, 0, verticalMovement);
         Vector3 calculatedDirection = moveDirection * moveSpeed * Time.deltaTime;
-        //Debug.Log("Magnitude: " + calculatedDirection.magnitude + ". Max speed " + maxSpeed);
-        float moveMagnitude = calculatedDirection.magnitude;
-        Debug.Log("moveMagnitude: " + moveMagnitude);
-        Debug.Log(calculatedDirection.magnitude > maxSpeed);
         if (calculatedDirection.magnitude > maxSpeed)
         {
             Debug.Log("Max speed reached");
             calculatedDirection = calculatedDirection.normalized * maxSpeed;
         }
-        Debug.Log("Moving");
-        if (moveMagnitude <= moveMagnitudeThreshold)
-        {
-            characterController.SimpleMove(Vector3.zero);
-        } else
-        {
-            characterController.Move(calculatedDirection);
-        }
+        characterController.Move(calculatedDirection);
     }
+
+    private void HandlePlayerDeath()
+    {
+        Debug.Log("Played died!");
+        Destroy(gameObject);
+    }
+
 }
