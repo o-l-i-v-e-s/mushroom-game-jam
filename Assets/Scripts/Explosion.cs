@@ -6,7 +6,6 @@ public class Explosion : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger on explosion");
         if(other.CompareTag("Breakable"))
         {
             Breakable breakable = other.gameObject.GetComponent<Breakable>();

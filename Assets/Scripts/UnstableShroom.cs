@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class UnstableShroom : MonoBehaviour
 {
+    GameObject GameManager;
+    PlayerDataManager playerDataManager;
     [SerializeField] float SecondsUntilExplosion = 1f;
     [SerializeField] float SecondsToDestroySelf = 1f;
     [SerializeField] float SecondsPerExplosionSet = 0.1f;
     [SerializeField] GameObject Explosion;
-    [SerializeField] int setsOfExplosions = 1;
+
+    private void Start()
+    {
+        GameManager = GameObject.Find("GameManager");
+        if (GameManager == null)
+        {
+            Debug.LogError("GameManager game object is null in UnstableShroom");
+        }
+        else
+        {
+            playerDataManager = GameManager.GetComponent<PlayerDataManager>();
+            if (playerDataManager == null)
+            {
+                Debug.LogError("playerDataManager script is null in UnstableShroom");
+            }
+        }
+        StartCoroutine(ExplodeAndDestroySelf());
+    }
+
     IEnumerator ExplodeAndDestroySelf()
     {
         yield return new WaitForSeconds(SecondsUntilExplosion);
-        HandleInstantiateExplosions(setsOfExplosions);
+        HandleInstantiateExplosions(playerDataManager.ExplosionLength);
         StartCoroutine(DestroySelf());
     }
 
@@ -43,10 +63,5 @@ public class UnstableShroom : MonoBehaviour
     {
         yield return new WaitForSeconds(SecondsToDestroySelf);
         Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        StartCoroutine(ExplodeAndDestroySelf());
     }
 }

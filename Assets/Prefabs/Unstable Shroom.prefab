@@ -63,7 +63,7 @@ MonoBehaviour:
   SecondsToDestroySelf: 1
   SecondsPerExplosionSet: 0.03
   Explosion: {fileID: 8773529437490589301, guid: b9012c75fc2a5a24b960d12832d7bec6, type: 3}
-  setsOfExplosions: 4
+  setsOfExplosions: 1
 --- !u!1001 &331667577088700934
 PrefabInstance:
   m_ObjectHideFlags: 0
