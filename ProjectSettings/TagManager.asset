@@ -8,6 +8,7 @@ TagManager:
   - Breakable
   - Collectable
   - Powerup
+  - ShroomCharacter
   layers:
   - Default
   - TransparentFX

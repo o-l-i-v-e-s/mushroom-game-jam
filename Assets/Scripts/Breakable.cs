@@ -9,25 +9,6 @@ public class Breakable : MonoBehaviour
     [SerializeField] float SpawnRateCollectable = 0.5f;
     [SerializeField] float SpawnRateInventoryManager = 0.5f;
 
-    GameObject GameManager;
-    PlayerDataManager playerDataManager;
-
-    private void Start()
-    {
-        GameManager = GameObject.Find("GameManager");
-        if(GameManager == null)
-        {
-            Debug.LogError("gameManager is null on Breakable script");
-        } else
-        {
-            playerDataManager = GameManager.GetComponent<PlayerDataManager>();
-            if (playerDataManager == null)
-            {
-                Debug.LogError("playerDataManager script is null in Breakable script");
-            }
-        }
-    }
-
     public void HandleBreak()
     {
         GameObject gameObjectToSpawn = GetGameObjectToSpawn();
@@ -47,10 +28,6 @@ public class Breakable : MonoBehaviour
             return Collectable;
         } else if (RandomNumber <= ((1 * SpawnRateCollectable)+ (1 * SpawnRateInventoryManager)))
         {
-            if(playerDataManager.ExplosionLength >= playerDataManager.ExplosionLengthLimit)
-            {
-                return null;
-            }
             return Powerup;
         } else
         {

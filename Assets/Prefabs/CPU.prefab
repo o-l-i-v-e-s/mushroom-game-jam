@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 3721685412922210124}
   - component: {fileID: 7839379675407665453}
   - component: {fileID: 786267221}
-  - component: {fileID: 786267220}
-  - component: {fileID: 574191732}
-  - component: {fileID: 574191734}
+  - component: {fileID: 1277008976}
+  - component: {fileID: 1277008977}
   m_Layer: 0
-  m_Name: Player
+  m_Name: CPU
   m_TagString: ShroomCharacter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1919860019869249650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 1, z: -5}
-  m_LocalScale: {x: 0.73483, y: 0.73483, z: 0.73483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1fd0937061c615145a8388b034df6fcc, type: 2}
+  - {fileID: 2100000, guid: 09a9a5fdbba45404da02962ed6f44353, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,7 +104,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &786267220
+--- !u!114 &1277008976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919860019869249650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b811671bc16b17b4f9918a1ee10acac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  maxSpeed: 20
+  SecondsToPlaceShroom: 1
+--- !u!114 &1277008977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,35 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnstableShroom: {fileID: 1200045816385937754, guid: c04eafba08f61b6499bacb9497cf62c8, type: 3}
-  <ExplosionLength>k__BackingField: 1
-  <ExplosionLengthLimit>k__BackingField: 4
---- !u!114 &574191732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919860019869249650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a5eaaec8b1210489e3273d0faa14c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  maxSpeed: 20
-  SecondsToPlaceShroom: 1
-  UiManagerGameObject: {fileID: 0}
---- !u!114 &574191734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919860019869249650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cc92776c84000f418bd42d8ed9fa101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   <ExplosionLength>k__BackingField: 1
   <ExplosionLengthLimit>k__BackingField: 4

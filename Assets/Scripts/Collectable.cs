@@ -4,30 +4,15 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    GameObject GameManager;
-    InventoryManager inventoryManager;
-
-    private void Start()
-    {
-        GameManager = GameObject.Find("GameManager");
-        if (GameManager == null)
-        {
-            Debug.LogError("GameManager game object is null in Collectable");
-        }
-        else
-        {
-            inventoryManager = GameManager.GetComponent<InventoryManager>();
-            if (inventoryManager == null)
-            {
-                Debug.LogError("inventoryManager script is null in Collectable");
-            }
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("ShroomCharacter"))
         {
-            inventoryManager.HandleGetCollectable();
+            ShroomCharacter shroomCharacter = other.GetComponent<ShroomCharacter>();
+            if (shroomCharacter != null)
+            {
+                shroomCharacter.HandleGetCollectable();
+            }
             Destroy(gameObject);
         }
     }

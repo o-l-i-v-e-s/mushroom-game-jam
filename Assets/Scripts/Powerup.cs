@@ -4,30 +4,18 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    GameObject GameManager;
-    PlayerDataManager playerDataManager;
-
-    private void Start()
-    {
-        GameManager = GameObject.Find("GameManager");
-        if (GameManager == null)
-        {
-            Debug.LogError("GameManager game object is null in Powerup");
-        }
-        else
-        {
-            playerDataManager = GameManager.GetComponent<PlayerDataManager>();
-            if (playerDataManager == null)
-            {
-                Debug.LogError("playerDataManager script is null in Powerup");
-            }
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Debug.Log("OnTriggerEnter Powerup");
+        Debug.Log(other.tag);
+        if (other.CompareTag("ShroomCharacter"))
         {
-            playerDataManager.HandleGetPowerup();
+            Debug.Log("is shroom char");
+            ShroomCharacter shroomCharacter = other.GetComponent<ShroomCharacter>();
+            if(shroomCharacter != null)
+            {
+                shroomCharacter.HandleGetPowerup();
+            }
             Destroy(gameObject);
         }
     }
