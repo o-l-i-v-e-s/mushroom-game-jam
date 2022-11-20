@@ -17,7 +17,7 @@ public class UiManager : MonoBehaviour
     {
         if(UnstableShroomImage == null)
         {
-            Debug.LogError("UnstableShroomImage is null on UiManager");
+            Debug.Log("UnstableShroomImage is null on UiManager");
         }
 
     }
@@ -95,6 +95,13 @@ public class UiManager : MonoBehaviour
         {
             alpha = 0.3f;
         }
-        UnstableShroomImage.color = new Color(UnstableShroomImage.color.r, UnstableShroomImage.color.g, UnstableShroomImage.color.b, alpha);
+        if (UnstableShroomImage == null)
+        {
+            Debug.LogError("UnstableShroomImage is null");
+        }
+        else
+        {
+            UnstableShroomImage.color = new Color(UnstableShroomImage.color.r, UnstableShroomImage.color.g, UnstableShroomImage.color.b, alpha);
+        }
     }
 }
