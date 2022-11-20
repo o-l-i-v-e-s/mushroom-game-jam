@@ -5,6 +5,8 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private CharacterController characterController;
+    [SerializeField] GameObject UiManagerGameObject;
+    UiManager uiManager;
     [SerializeField] float moveSpeed = 6f;
     [SerializeField] float maxSpeed = 20f;
     [SerializeField] GameObject UnstableShroom;
@@ -15,6 +17,15 @@ public class Character : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        if (UiManagerGameObject == null)
+        {
+            Debug.LogError("UiManagerGameObject is null on Character script");
+        }
+        uiManager = UiManagerGameObject.GetComponent<UiManager>();
+        if (uiManager == null)
+        {
+            Debug.LogError("uiManager script is null on Character script");
+        }
     }
 
     void Update()
@@ -38,6 +49,7 @@ public class Character : MonoBehaviour
             Vector3 ShroomPosition = new Vector3(Mathf.RoundToInt(transform.position.x),transform.position.y,Mathf.RoundToInt(transform.position.z));
             Instantiate(UnstableShroom, ShroomPosition, Quaternion.identity);
             CanPlaceShroom = false;
+            uiManager.SetCanPlaceShroom(CanPlaceShroom);
             StartCoroutine(UpdateCanPlaceShroom(true));
         }
     }
@@ -46,6 +58,7 @@ public class Character : MonoBehaviour
     {
         yield return new WaitForSeconds(SecondsToPlaceShroom);
         CanPlaceShroom = Boolean;
+        uiManager.SetCanPlaceShroom(CanPlaceShroom);
     }
 
     void HandleMovement()
@@ -65,7 +78,7 @@ public class Character : MonoBehaviour
     private void HandlePlayerDeath()
     {
         Debug.Log("Played died!");
+        uiManager.ShowLoseMenu();
         Destroy(gameObject);
     }
-
 }
