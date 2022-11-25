@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Bot : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Bot : MonoBehaviour
     [SerializeField] float maxSpeed = 20f;
     [SerializeField] float SecondsToPlaceShroom = 1f;
     private bool CanPlaceShroom = true;
+    private NavMeshAgent agent;
 
     void Start()
     {
@@ -16,7 +18,12 @@ public class Bot : MonoBehaviour
         shroomCharacter = gameObject.GetComponent<ShroomCharacter>();
         if (shroomCharacter == null)
         {
-            Debug.LogError("character is null on BotInput");
+            Debug.LogError("character is null on Bot");
+        }
+        agent = gameObject.GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            Debug.LogError("agent is null on Bot");
         }
     }
 
@@ -28,27 +35,27 @@ public class Bot : MonoBehaviour
 
     private void HandleMovement()
     {
-/*        Debug.Log("Handling player movement from PlayerInput.cs");
-        float horizontalMovement = Input.GetAxis("Horizontal");
-        float verticalMovement = Input.GetAxis("Vertical");
-        Vector3 moveDirection = new Vector3(horizontalMovement, 0, verticalMovement);
-        Vector3 calculatedDirection = moveDirection * moveSpeed * Time.deltaTime;
-        if (calculatedDirection.magnitude > maxSpeed)
+        if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Max speed reached");
-            calculatedDirection = calculatedDirection.normalized * maxSpeed;
+            Debug.Log("Right Clicked");
+            Ray movePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(movePosition, out var hitInfo))
+            {
+                agent.SetDestination(hitInfo.point);
+            }
         }
-        shroomCharacter.HandleMovement(calculatedDirection);*/
     }
 
     private void HandleShroomPlacement()
     {
-        if (CanPlaceShroom)
+    /* Place an unstable shroom as soon as it's possible, every time*/
+    /*  if (CanPlaceShroom)
         {
             shroomCharacter.HandleShroomPlacement();
             CanPlaceShroom = false;
             StartCoroutine(UpdateCanPlaceShroom(true));
         }
+    */
     }
 
     IEnumerator UpdateCanPlaceShroom(bool Boolean)
