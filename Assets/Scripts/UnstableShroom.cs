@@ -34,10 +34,25 @@ public class UnstableShroom : MonoBehaviour
     private void InstantiateExplostionSet(int setIndex)
     {
         float ExplosionDelay = (setIndex) * SecondsPerExplosionSet;
+        StartCoroutine(InstantiateInvisibleExplosion(new Vector3(Mathf.RoundToInt(transform.position.x), transform.position.y, Mathf.RoundToInt(transform.position.z)), ExplosionDelay));
         StartCoroutine(InstantiateExplosion(new Vector3(Mathf.RoundToInt(transform.position.x + (setIndex + 1)), transform.position.y, Mathf.RoundToInt(transform.position.z)), ExplosionDelay));
         StartCoroutine(InstantiateExplosion(new Vector3(Mathf.RoundToInt(transform.position.x), transform.position.y, Mathf.RoundToInt(transform.position.z + (setIndex + 1))), ExplosionDelay));
         StartCoroutine(InstantiateExplosion(new Vector3(Mathf.RoundToInt(transform.position.x - (setIndex + 1)), transform.position.y, Mathf.RoundToInt(transform.position.z)), ExplosionDelay));
         StartCoroutine(InstantiateExplosion(new Vector3(Mathf.RoundToInt(transform.position.x), transform.position.y, Mathf.RoundToInt(transform.position.z - (setIndex + 1))), ExplosionDelay));
+    }
+
+    IEnumerator InstantiateInvisibleExplosion(Vector3 ExplosionPosition, float Delay)
+    {
+        yield return new WaitForSeconds(Delay);
+        GameObject CreatedExplosion = Instantiate(Explosion, ExplosionPosition, Quaternion.identity);
+        CreatedExplosion.transform.parent = gameObject.transform;
+        MeshRenderer meshRenderer = CreatedExplosion.GetComponent<MeshRenderer>();
+        Debug.Log(meshRenderer);
+        if(meshRenderer != null)
+        {
+            meshRenderer.enabled = false;
+            Debug.Log("Set up meshRenderer");
+        }
     }
     IEnumerator InstantiateExplosion(Vector3 ExplosionPosition, float Delay)
     {
