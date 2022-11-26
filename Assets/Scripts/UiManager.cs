@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject winMenu;
-    [SerializeField] GameObject loseMenu;
-    [SerializeField] Image UnstableShroomImage;
+    [SerializeField] GameObject endingMenu;
+    [SerializeField] Image UnstableShroomImage_P1;
+    [SerializeField] Image UnstableShroomImage_P2;
+    [SerializeField] GameObject EndingTitle;
 
     private bool isPaused;
 
     private void Start()
     {
-        if(UnstableShroomImage == null)
+        if(UnstableShroomImage_P1 == null)
         {
-            Debug.Log("UnstableShroomImage is null on UiManager");
+            Debug.Log("UnstableShroomImage_P1 is null on UiManager");
+        }
+        if (UnstableShroomImage_P2 == null)
+        {
+            Debug.Log("UnstableShroomImage_P2 is null on UiManager");
         }
 
     }
@@ -75,19 +81,36 @@ public class UiManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void ShowWinMenu()
+    public void ShowEndingMenu(string losingPlayerType)
     {
-        winMenu.SetActive(true);
+        if (EndingTitle != null)
+        {
+            TextMeshProUGUI text = EndingTitle.GetComponent<TextMeshProUGUI>();
+            if (text != null)
+            {
+                string WinningPlayerString = "";
+                if(losingPlayerType == "P1")
+                {
+                    WinningPlayerString = "2";
+                } else if (losingPlayerType == "P2")
+                {
+                    WinningPlayerString = "1";
+                }
+                text.text = "WINNER: Player " + WinningPlayerString;
+            }
+            else
+            {
+                Debug.LogError("TextMeshProUGUI text is null on EndingTitle GameObject");
+            }
+        } else
+        {
+            Debug.LogError("EndingTitle null");
+        }
+        endingMenu.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void ShowLoseMenu()
-    {
-        loseMenu.SetActive(true);
-        Time.timeScale = 0f;
-    }
-
-    public void SetCanPlaceShroom(bool canPlaceShroom)
+    public void SetCanPlaceShroom(bool canPlaceShroom, string playerType)
     {
         Debug.Log("SetCanPlaceShroom");
         float alpha = 1f;
@@ -95,13 +118,31 @@ public class UiManager : MonoBehaviour
         {
             alpha = 0.3f;
         }
-        if (UnstableShroomImage == null)
+        if(playerType != null)
         {
-            Debug.LogError("UnstableShroomImage is null");
-        }
-        else
+            Image UnstableShroomImage = null;
+            if(playerType == "P1")
+            {
+                UnstableShroomImage = UnstableShroomImage_P1;
+            } else if (playerType == "P2")
+            {
+                UnstableShroomImage = UnstableShroomImage_P2;
+            } else
+            {
+                Debug.LogError("Unsupported playerType in SetCanPlaceShroom");
+            }
+            if (UnstableShroomImage == null)
+            {
+                Debug.LogError("UnstableShroomImage is null");
+            }
+            else
+            {
+                UnstableShroomImage.color = new Color(UnstableShroomImage.color.r, UnstableShroomImage.color.g, UnstableShroomImage.color.b, alpha);
+            }
+        } else
         {
-            UnstableShroomImage.color = new Color(UnstableShroomImage.color.r, UnstableShroomImage.color.g, UnstableShroomImage.color.b, alpha);
+            Debug.LogError("playerType is null in SetCanPlaceShroom");
         }
+        
     }
 }
