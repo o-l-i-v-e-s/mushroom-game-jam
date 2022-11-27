@@ -15,7 +15,6 @@ public class ShroomCharacter : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        //animator = GetComponent<Animator>();
         animator = GetComponentInChildren<Animator>();
         if(animator == null)
         {
@@ -108,5 +107,12 @@ public class ShroomCharacter : MonoBehaviour
         {
             ExplosionLength++;
         }
+    }
+
+    public float PlayDeathAnimation()
+    {
+        float deathAnimationLength = 3f;
+        animator.SetTrigger("IsDead");
+        return deathAnimationLength;
     }
 }

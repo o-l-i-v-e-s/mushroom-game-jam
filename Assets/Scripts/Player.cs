@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] string PlayerType;
     UiManager uiManager;
     private bool CanPlaceShroom = true;
+    bool IsDead = false;
 
     void Start()
     {
@@ -38,8 +39,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        HandleMovement();
-        HandleShroomPlacement();
+        if(!IsDead)
+        {
+            HandleMovement();
+            HandleShroomPlacement();
+        }
     }
 
     private void HandleMovement()
@@ -95,15 +99,21 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Explosion"))
+        if (!IsDead)
         {
-            HandlePlayerDeath();
+            if (other.CompareTag("Explosion"))
+            {
+                StartCoroutine(HandlePlayerDeath());
+            }
         }
     }
 
-    private void HandlePlayerDeath()
+    IEnumerator HandlePlayerDeath()
     {
         Debug.Log("Player " + PlayerType + " died!");
+        float delay = shroomCharacter.PlayDeathAnimation();
+        IsDead = true;
+        yield return new WaitForSeconds(delay);
         uiManager.ShowEndingMenu(PlayerType);
         Destroy(gameObject);
     }
