@@ -8,10 +8,75 @@ public class ShroomCharacter : MonoBehaviour
     [SerializeField] GameObject UnstableShroom;
     [field: SerializeField] public int ExplosionLength { get; private set; } = 1;
     [field: SerializeField] public int ExplosionLengthLimit { get; private set; } = 4;
+    float VelocityMagnitudeThreshold = 0.4f;
+
+    Animator animator;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        //animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        if(animator == null)
+        {
+            Debug.LogError("animator is null on ShroomCharacter");
+        }
+    }
+
+    private void Update()
+    {
+        HandleCharacterAnimation();
+        HandleCharacterRotation();
+    }
+
+    private void HandleCharacterAnimation()
+    {
+        Debug.Log(characterController.velocity.magnitude);
+        if (characterController.velocity.magnitude > VelocityMagnitudeThreshold)
+        {
+            animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            Debug.Log("IsWalking: FALSE");
+            animator.SetBool("IsWalking", false);
+        }
+    }
+
+    private void HandleCharacterRotation()
+    {
+        if (characterController.velocity.magnitude > VelocityMagnitudeThreshold)
+        {
+            float xDirection = characterController.velocity.x;
+            float zDirection = characterController.velocity.z;
+            if(Mathf.Abs(xDirection) > Mathf.Abs(zDirection))
+            {
+                // face horizontal direction
+                if(xDirection < 0)
+                {
+                    // left
+                    transform.rotation = Quaternion.LookRotation(new Vector3(-1,0,0));
+                } else if (xDirection > 0)
+                {
+                    // right
+                    transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+                }
+            } else if (Mathf.Abs(xDirection) < Mathf.Abs(zDirection))
+            {
+                // face vertical direction
+                if (zDirection < 0)
+                {
+                    // down
+                    transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+                }
+                else if (zDirection > 0)
+                {
+                    // up
+                    Debug.Log("UP");
+                    transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+                }
+            }
+        }
     }
 
     public void HandleShroomPlacement()
