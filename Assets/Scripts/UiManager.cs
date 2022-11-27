@@ -30,7 +30,7 @@ public class UiManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             if (pauseMenu != null)
             {
@@ -62,6 +62,7 @@ public class UiManager : MonoBehaviour
                             Application.Quit();
         #elif (UNITY_WEBGL)
                         SceneManager.LoadScene("MainMenu");
+                        Screen.fullScreen = false;
         #endif
     }
 
