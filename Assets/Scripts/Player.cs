@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     UiManager uiManager;
     private bool CanPlaceShroom = true;
     bool IsDead = false;
+    [SerializeField] GameObject soundManagerGameObject;
+    SoundManager soundManager;
 
     void Start()
     {
@@ -34,6 +36,15 @@ public class Player : MonoBehaviour
         if(PlayerType == null)
         {
             Debug.Log("Player type is null");
+        }
+        if (soundManagerGameObject == null)
+        {
+            Debug.LogError("soundManagerGameObject is null on Player");
+        }
+        soundManager = soundManagerGameObject.GetComponent<SoundManager>();
+        if (soundManager == null)
+        {
+            Debug.LogError("soundManager is null on Player");
         }
     }
 
@@ -110,11 +121,13 @@ public class Player : MonoBehaviour
 
     IEnumerator HandlePlayerDeath()
     {
+        soundManager.PlaySoundCharacterDeath();
         Debug.Log("Player " + PlayerType + " died!");
         float delay = shroomCharacter.PlayDeathAnimation();
         IsDead = true;
         yield return new WaitForSeconds(delay);
         uiManager.ShowEndingMenu(PlayerType);
+        soundManager.PlaySoundEndGame();
         Destroy(gameObject);
     }
 }

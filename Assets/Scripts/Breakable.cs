@@ -23,8 +23,10 @@ public class Breakable : MonoBehaviour
 
     private GameObject GetGameObjectToSpawn()
     {
+        // don't allow spawning of collectables for now
+        bool AllowSpawningOfCollectable = false;
         float RandomNumber = Random.Range(0f, 1f);
-        if (RandomNumber <= (1 * SpawnRateCollectable))
+        if ((RandomNumber <= (1 * SpawnRateCollectable)) && AllowSpawningOfCollectable)
         {
             return Collectable;
         } else if (RandomNumber <= ((1 * SpawnRateCollectable)+ (1 * SpawnRateInventoryManager)))

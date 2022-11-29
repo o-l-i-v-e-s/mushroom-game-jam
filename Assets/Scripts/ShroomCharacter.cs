@@ -9,6 +9,8 @@ public class ShroomCharacter : MonoBehaviour
     [field: SerializeField] public int ExplosionLength { get; private set; } = 1;
     [field: SerializeField] public int ExplosionLengthLimit { get; private set; } = 4;
     float VelocityMagnitudeThreshold = 0.4f;
+    [SerializeField] GameObject soundManagerGameObject;
+    SoundManager soundManager;
 
     Animator animator;
 
@@ -19,6 +21,15 @@ public class ShroomCharacter : MonoBehaviour
         if(animator == null)
         {
             Debug.LogError("animator is null on ShroomCharacter");
+        }
+        if(soundManagerGameObject == null)
+        {
+            Debug.LogError("soundManagerGameObject is null on ShroomCharacter");
+        }
+        soundManager = soundManagerGameObject.GetComponent<SoundManager>();
+        if (soundManager == null)
+        {
+            Debug.LogError("soundManager is null on ShroomCharacter");
         }
     }
 
@@ -82,7 +93,8 @@ public class ShroomCharacter : MonoBehaviour
     {
             Vector3 ShroomPosition = new Vector3(Mathf.RoundToInt(transform.position.x),transform.position.y,Mathf.RoundToInt(transform.position.z));
             GameObject NewShroom = Instantiate(UnstableShroom, ShroomPosition, Quaternion.identity);
-            if(NewShroom != null)
+            soundManager.PlaySoundPlaceBomb();
+            if (NewShroom != null)
             {
                 UnstableShroom us = NewShroom.GetComponent<UnstableShroom>();
                 us.ExplosionLength = ExplosionLength;
@@ -103,6 +115,7 @@ public class ShroomCharacter : MonoBehaviour
         Debug.Log("Getting powerup");
         // until we have specific powerup types, increment ExplosionLength
         // limit it to 4 for now
+        soundManager.PlaySoundPickupPowerup();
         if (ExplosionLength < ExplosionLengthLimit)
         {
             ExplosionLength++;

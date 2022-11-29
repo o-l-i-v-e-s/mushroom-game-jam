@@ -10,15 +10,36 @@ public class UnstableShroom : MonoBehaviour
     [SerializeField] float SecondsPerExplosionSet = 0.1f;
     [SerializeField] GameObject Explosion;
     public int ExplosionLength = 1;
+    GameObject soundManagerGameObject;
+    SoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManagerGameObject = GameObject.Find("SoundManager");
+        if (soundManagerGameObject == null)
+        {
+            Debug.LogError("soundManagerGameObject is null");
+        }
+        else
+        {
+            soundManager = soundManagerGameObject.GetComponent<SoundManager>();
+            if (soundManager == null)
+            {
+                Debug.LogError("soundManager on UnstableShroom is null");
+            }
+        }
+    }
 
     private void Start()
     {
+        soundManager.PlaySoundPlaceBomb();
         StartCoroutine(ExplodeAndDestroySelf());
     }
 
     IEnumerator ExplodeAndDestroySelf()
     {
         yield return new WaitForSeconds(SecondsUntilExplosion);
+        soundManager.PlaySoundExplodeBomb();
         HandleInstantiateExplosions(ExplosionLength);
         StartCoroutine(DestroySelf());
     }

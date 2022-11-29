@@ -12,6 +12,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] Image UnstableShroomImage_P1;
     [SerializeField] Image UnstableShroomImage_P2;
     [SerializeField] GameObject EndingTitle;
+    [SerializeField] GameObject GameUi;
 
     private bool isPaused;
 
@@ -19,11 +20,15 @@ public class UiManager : MonoBehaviour
     {
         if(UnstableShroomImage_P1 == null)
         {
-            Debug.Log("UnstableShroomImage_P1 is null on UiManager");
+            Debug.LogError("UnstableShroomImage_P1 is null on UiManager");
         }
         if (UnstableShroomImage_P2 == null)
         {
-            Debug.Log("UnstableShroomImage_P2 is null on UiManager");
+            Debug.LogError("UnstableShroomImage_P2 is null on UiManager");
+        }
+        if (GameUi == null)
+        {
+            Debug.LogError("GameUi is null on UiManager");
         }
 
     }
@@ -72,6 +77,7 @@ public class UiManager : MonoBehaviour
         isPaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        GameUi.SetActive(false);
     }
 
     public void ResumeGame()
@@ -80,6 +86,7 @@ public class UiManager : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        GameUi.SetActive(true);
     }
 
     public void ShowEndingMenu(string losingPlayerType)
