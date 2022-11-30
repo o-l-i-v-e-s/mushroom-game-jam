@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4490134126851109632}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6360246380158900005}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -114,3 +115,65 @@ MonoBehaviour:
   Powerup: {fileID: 6011792357347404660, guid: c2bb5acb8c4085d45b5fc43d601ffc84, type: 3}
   SpawnRateCollectable: 0.5
   SpawnRateInventoryManager: 0.5
+--- !u!1001 &8805373737147630362
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 876528121872836161}
+    m_Modifications:
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704091900229511840, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+      propertyPath: m_Name
+      value: WallShroomModel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+--- !u!4 &4490134126851109632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4927731771252715546, guid: 0c4632cab89fb2d498e016ff84ba4dbd, type: 3}
+  m_PrefabInstance: {fileID: 8805373737147630362}
+  m_PrefabAsset: {fileID: 0}
