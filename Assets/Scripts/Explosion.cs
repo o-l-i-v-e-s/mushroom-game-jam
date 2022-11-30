@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    float AnimationLength = 0.8f;
+    private void Start()
+    {
+        Destroy(gameObject, AnimationLength);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Breakable"))

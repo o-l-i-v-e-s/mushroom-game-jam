@@ -40,6 +40,14 @@ public class UnstableShroom : MonoBehaviour
     {
         yield return new WaitForSeconds(SecondsUntilExplosion);
         soundManager.PlaySoundExplodeBomb();
+        MeshRenderer meshRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+        if(meshRenderer != null)
+        {
+            meshRenderer.enabled = false;
+        } else
+        {
+            Debug.LogError("meshRenderer not found on UnstableShroom");
+        }
         HandleInstantiateExplosions(ExplosionLength);
         StartCoroutine(DestroySelf());
     }
@@ -84,12 +92,6 @@ public class UnstableShroom : MonoBehaviour
         yield return new WaitForSeconds(Delay);
         GameObject CreatedExplosion = Instantiate(Explosion, ExplosionPosition, Quaternion.identity);
         CreatedExplosion.transform.parent = gameObject.transform;
-        MeshRenderer meshRenderer = CreatedExplosion.GetComponent<MeshRenderer>();
-        Debug.Log(meshRenderer);
-        if(meshRenderer != null)
-        {
-            meshRenderer.enabled = false;
-        }
     }
 
     IEnumerator InstantiateExplosion(Vector3 ExplosionPosition, float Delay)
