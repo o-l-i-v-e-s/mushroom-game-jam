@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnstableShroom : MonoBehaviour
 {
     GameObject GameManager;
-    [SerializeField] float SecondsUntilExplosion = 1f;
+    float SecondsUntilExplosion = 2f;
     [SerializeField] float SecondsToDestroySelf = 1f;
     [SerializeField] float SecondsPerExplosionSet = 0.1f;
     [SerializeField] GameObject Explosion;

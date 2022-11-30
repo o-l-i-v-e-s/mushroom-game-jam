@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
             InputPlaceBomb = Input.GetKeyDown(KeyCode.Space);
         } else if (PlayerType == "P2")
         {
-            InputPlaceBomb = Input.GetKeyDown(KeyCode.RightControl);
+            InputPlaceBomb = Input.GetKeyDown(KeyCode.RightShift);
         }
         if (InputPlaceBomb && CanPlaceShroom)
         {

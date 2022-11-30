@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip explodeBomb;
     [SerializeField] AudioClip characterDeath;
     [SerializeField] AudioClip gameEnd;
-    [SerializeField] AudioClip backgroundMusic;
+    [SerializeField] AudioSource backgroundMusic;
 
     // Start is called before the first frame update
     AudioSource audioSource;
@@ -69,7 +69,11 @@ public class SoundManager : MonoBehaviour
         float alpha = 1f;
         if (!IsSoundOn)
         {
+            backgroundMusic.enabled = false;
             alpha = 0.3f;
+        } else
+        {
+            backgroundMusic.enabled = true;
         }
         SoundImage.color = new Color(SoundImage.color.r, SoundImage.color.g, SoundImage.color.b, alpha);
     }
